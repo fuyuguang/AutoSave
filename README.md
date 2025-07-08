@@ -1,6 +1,15 @@
 [![license](https://img.shields.io/badge/license-Apache2.0-brightgreen.svg?style=flat)](https://github.com/JavaNoober/AutoSave)
 [![JCenter](https://img.shields.io/badge/JCenter-AutoSaver-green.svg?style=flat)](https://bintray.com/noober/maven/AutoSaver)
+
+
+
+
+## 111
+
+
+
 ## AutoSave
+
 该框架可以自动生成OnSaveInstanceState代码，保持内存恢复，支持kotlin使用
 
 
@@ -35,13 +44,13 @@
     repositories {
         maven { url 'https://jitpack.io' }
     }
-
+    
     allprojects {
         repositories {
             maven { url 'https://jitpack.io' }
         }
     }
-
+    
     dependencies {
         ...
         classpath 'com.github.JavaNoober.AutoSave:savehelper-plugin:4.0.2'
@@ -75,7 +84,7 @@ project的gradle:
             include "com.noober.savehelper"
             exclude 'versions.9'
         }
-
+    
     }
 ## 混淆配置：
 
@@ -83,7 +92,7 @@ project的gradle:
      -keep class com.noober.api.**{*;}
      -keep class com.noober.savehelper.**{*;}
      -keep class * implements com.noober.savehelper.ISaveInstanceStateHelper {*;}
-     
+
 ## 使用方法
 
 对变量增加@NeedSave注解即可
@@ -99,7 +108,7 @@ _**注意：**_
   4.2：如果是其他数据类型，需要增加lateinit关键字或者添加一个注解@JvmField
   否则会报错"the modifier of the field must not be private, otherwise  it won't work"。
 
-    
+
     public class MainActivity extends AppCompatActivity {
     
         @NeedSave
@@ -119,24 +128,26 @@ _**注意：**_
                 }
             });
         }
-    
-    
-        @Override
-        protected void onResume() {
-            super.onResume();
-            textView.setText(a + "");
-            Log.e("MainActivity", a + "");
-        }
-    
+
+
+​    
+​        @Override
+​        protected void onResume() {
+​            super.onResume();
+​            textView.setText(a + "");
+​            Log.e("MainActivity", a + "");
+​        }
+​    
         @Override
         protected void onSaveInstanceState(Bundle outState) {
             super.onSaveInstanceState(outState);
         }
     }
 
-    
-    public class BlankFragment extends Fragment {
-        
+
+​    
+​    public class BlankFragment extends Fragment {
+​        
         @NeedSave
         String mParam1;
     
@@ -172,15 +183,16 @@ _**注意：**_
             Log.e("KotlinActivity",  a.toString())
     
         }
-    
-    
-        override fun onSaveInstanceState(outState: Bundle?) {
-            Log.e("KotlinActivity",  "onSaveInstanceState")
-            a = 2
-            super.onSaveInstanceState(outState)
-        }
-    }
-    
+
+
+​    
+​        override fun onSaveInstanceState(outState: Bundle?) {
+​            Log.e("KotlinActivity",  "onSaveInstanceState")
+​            a = 2
+​            super.onSaveInstanceState(outState)
+​        }
+​    }
+
 ### 自定义view
 
     public class CustomView extends View {
@@ -195,19 +207,21 @@ _**注意：**_
         public CustomView(Context context, @Nullable AttributeSet attrs) {
             super(context, attrs);
         }
-    
-    
-        public CustomView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-            super(context, attrs, defStyleAttr);
-        }
-    
-    
-        @Override
-        protected void dispatchSaveInstanceState(SparseArray<Parcelable> container) {
-            SaveHelper.save(this, container);
-            super.dispatchSaveInstanceState(container);
-        }
-    
+
+
+​    
+​        public CustomView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+​            super(context, attrs, defStyleAttr);
+​        }
+
+
+​    
+​        @Override
+​        protected void dispatchSaveInstanceState(SparseArray<Parcelable> container) {
+​            SaveHelper.save(this, container);
+​            super.dispatchSaveInstanceState(container);
+​        }
+​    
         @Override
         protected void dispatchRestoreInstanceState(SparseArray<Parcelable> container) {
             super.dispatchRestoreInstanceState(container);
@@ -216,7 +230,7 @@ _**注意：**_
     }
 
 ## 具体原理介绍
-  
+
   [**原理介绍**](https://github.com/JavaNoober/AutoSave/blob/master/README-PRINCIPLE.md)
 ## 使用注意
 1、如果出现下面的错误，是由aspectj导致的，可以看一下解决[issue](https://github.com/HujiangTechnology/gradle_plugin_android_aspectjx/issues/82)
